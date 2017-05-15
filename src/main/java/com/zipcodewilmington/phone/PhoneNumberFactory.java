@@ -4,6 +4,7 @@ import com.zipcodewilmington.exceptions.InvalidPhoneNumberFormatException;
 import com.zipcodewilmington.tools.RandomNumberFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 
 /**
  * Created by leon on 5/1/17.
@@ -22,15 +23,35 @@ public final class PhoneNumberFactory {
      */ //TODO - Implement logic
     public static PhoneNumber[] createRandomPhoneNumberArray(int phoneNumberCount) {
 
+        for(int i =0; i < phoneNumberCount; i++){
+
+        }
+
         return null;
     }
 
     /**
      * @return an instance of PhoneNumber with randomly generated phone number value
      */ //TODO - Implement logic
-    private static PhoneNumber createRandomPhoneNumber() {
+    private static PhoneNumber createRandomPhoneNumber() throws InvalidPhoneNumberFormatException{
+        int randomDigit = (int) Math.floor(Math.random() * 9 + 1);
 
-        return createPhoneNumberSafely(-1, -1, -1);
+        int areaCode = 0;
+        int centralOfficeCode = 0;
+        int phoneLineCode= 0;
+
+
+            for (int i = 0; i > 10; i++) {
+                if (areaCode <= 3) {
+                    areaCode += randomDigit;
+                } else if (centralOfficeCode <= 3) {
+                    centralOfficeCode += randomDigit;
+                } else if (phoneLineCode <= 4) {
+                    phoneLineCode += randomDigit;
+                }
+            }
+
+            return createPhoneNumberSafely(areaCode,centralOfficeCode,phoneLineCode);
     }
 
 
@@ -41,7 +62,6 @@ public final class PhoneNumberFactory {
      * @return a new phone number object
      */ //TODO - if input is valid, return respective PhoneNumber object, else return null
     public static PhoneNumber createPhoneNumberSafely(int areaCode, int centralOfficeCode, int phoneLineCode) {
-
         try {
             return createPhoneNumber(String.valueOf(areaCode)+ String.valueOf(centralOfficeCode) + String.valueOf(phoneLineCode));
         }
