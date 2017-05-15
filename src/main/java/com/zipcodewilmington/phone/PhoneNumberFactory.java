@@ -41,7 +41,13 @@ public final class PhoneNumberFactory {
      * @return a new phone number object
      */ //TODO - if input is valid, return respective PhoneNumber object, else return null
     public static PhoneNumber createPhoneNumberSafely(int areaCode, int centralOfficeCode, int phoneLineCode) {
-        return createPhoneNumber((String) areaCode += (String) centralOfficeCode);
+
+        try {
+            return createPhoneNumber(String.valueOf(areaCode)+ String.valueOf(centralOfficeCode) + String.valueOf(phoneLineCode));
+        }
+        catch (InvalidPhoneNumberFormatException e) {
+            return null;
+        }
     }
 
     /**
