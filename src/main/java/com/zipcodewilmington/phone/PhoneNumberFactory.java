@@ -6,10 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by leon on 5/1/17.
  */
-public final class PhoneNumberFactory {
+public final class PhoneNumberFactory extends RandomNumberFactory {
     private static final Logger logger = LoggerFactory.getLogger(PhoneNumberFactory.class);
 
     private PhoneNumberFactory() {
@@ -22,37 +25,21 @@ public final class PhoneNumberFactory {
      * @return array of randomly generated PhoneNumber objects
      */ //TODO - Implement logic
     public static PhoneNumber[] createRandomPhoneNumberArray(int phoneNumberCount) {
-
-        for(int i =0; i < phoneNumberCount; i++){
-
-        }
-
         return null;
     }
 
     /**
      * @return an instance of PhoneNumber with randomly generated phone number value
      */ //TODO - Implement logic
-    private static PhoneNumber createRandomPhoneNumber() throws InvalidPhoneNumberFormatException{
-        int randomDigit = (int) Math.floor(Math.random() * 9 + 1);
+    private static PhoneNumber createRandomPhoneNumber() {
 
-        int areaCode = 0;
-        int centralOfficeCode = 0;
-        int phoneLineCode= 0;
+        int areaCode = RandomNumberFactory.createInteger(1,9);
+        int centralOfficeCode = RandomNumberFactory.createInteger(1,9);
+        int phoneLineCode = RandomNumberFactory.createInteger(1,9);
 
-
-            for (int i = 0; i > 10; i++) {
-                if (areaCode <= 3) {
-                    areaCode += randomDigit;
-                } else if (centralOfficeCode <= 3) {
-                    centralOfficeCode += randomDigit;
-                } else if (phoneLineCode <= 4) {
-                    phoneLineCode += randomDigit;
-                }
-            }
-
-            return createPhoneNumberSafely(areaCode,centralOfficeCode,phoneLineCode);
+        return createPhoneNumberSafely(areaCode,centralOfficeCode, phoneLineCode);
     }
+
 
 
     /**
@@ -64,8 +51,7 @@ public final class PhoneNumberFactory {
     public static PhoneNumber createPhoneNumberSafely(int areaCode, int centralOfficeCode, int phoneLineCode) {
         try {
             return createPhoneNumber(String.valueOf(areaCode)+ String.valueOf(centralOfficeCode) + String.valueOf(phoneLineCode));
-        }
-        catch (InvalidPhoneNumberFormatException e) {
+        } catch (InvalidPhoneNumberFormatException e) {
             return null;
         }
     }
