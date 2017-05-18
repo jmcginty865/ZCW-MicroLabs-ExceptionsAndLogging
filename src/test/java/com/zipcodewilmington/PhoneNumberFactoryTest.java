@@ -81,7 +81,7 @@ public class PhoneNumberFactoryTest {
     public void testCreateRandomPhoneNumber() {
         Logger.getGlobal().setLevel(Level.FINEST);
         // : Given
-        PhoneNumber[] phoneNumbers = PhoneNumberFactory.createRandomPhoneNumberArray(10);
+        PhoneNumber[] phoneNumbers = PhoneNumberFactory.createRandomPhoneNumberArray(999);
 
         // : When
         for (PhoneNumber phoneNumber : phoneNumbers) {
